@@ -4,20 +4,13 @@ import mqttClient from './mqttClient';
 import startSorting from "./mongo/startSorting";
 import getColorsBySortingId from "./mongo/getColorsBySortingId";
 import ColorSorted from "./types/ColorSorted";
+import StartMessage from "./types/StartMessage";
+import StopMessage from "./types/StopMessage";
 
 const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-
-interface StartMessage {
-    id: string
-    amountToBeSorted: number
-}
-
-interface StopMessage {
-    id: String
-}
 
 app.post('/action/start', async (req, res) => {
     const actionRequest = req.body;
