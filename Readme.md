@@ -1,3 +1,9 @@
+# Run
+```bash
+docker compose up -d
+npm start
+```
+# Endpoints
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
