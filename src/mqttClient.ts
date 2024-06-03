@@ -1,10 +1,11 @@
 import mqtt from 'mqtt';
 import saveColorToDB from './mongo/saveColorToDb'
 import ColorSorted from "./types/ColorSorted";
+import dotenv from "dotenv";
+dotenv.config();
 
-
-let brokerUrl = process.env.MQTT_LINK || '54.158.167.125';
-let mqttPort = process.env.MQTT_PORT || '1883';
+let brokerUrl = process.env.MQTT_LINK;
+let mqttPort = process.env.MQTT_PORT;
 const mqttClient : mqtt.MqttClient = mqtt.connect('mqtt://' + brokerUrl + ':' + mqttPort); // Change to your MQTT broker URL
 
 mqttClient.on('error', (error) => {

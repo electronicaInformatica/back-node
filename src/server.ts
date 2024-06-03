@@ -4,8 +4,10 @@ import mqttClient from './mqttClient';
 import startSorting from "./mongo/startSorting";
 import getColorsBySortingId from "./mongo/getColorsBySortingId";
 import ColorSorted from "./types/ColorSorted";
-const cors = require('cors');
+import dotenv from "dotenv";
+import cors from "cors";
 
+dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
