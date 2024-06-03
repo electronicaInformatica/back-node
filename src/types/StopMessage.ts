@@ -1,4 +1,4 @@
 interface StopMessage {
-    id: String
+    sortingId: String
 }
 export default StopMessage;

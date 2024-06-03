@@ -1,7 +1,7 @@
 
-interface StartMessage {
-    id: string
-    amountToBeSorted: number
+interface StartMessage{
+    "sortingId": string,
+    "amountToBeSorted": number
 }
 
 export default StartMessage;

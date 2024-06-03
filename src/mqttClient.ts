@@ -3,7 +3,9 @@ import saveColorToDB from './mongo/saveColorToDb'
 import ColorSorted from "./types/ColorSorted";
 
 
-const mqttClient : mqtt.MqttClient = mqtt.connect('mqtt://localhost:1883'); // Change to your MQTT broker URL
+let brokerUrl = process.env.MQTT_LINK || '54.158.167.125';
+let mqttPort = process.env.MQTT_PORT || '1883';
+const mqttClient : mqtt.MqttClient = mqtt.connect('mqtt://' + brokerUrl + ':' + mqttPort); // Change to your MQTT broker URL
 
 mqttClient.on('error', (error) => {
     console.error('MQTT connection error:', error);
