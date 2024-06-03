@@ -4,11 +4,21 @@ import mqttClient from './mqttClient';
 import startSorting from "./mongo/startSorting";
 import getColorsBySortingId from "./mongo/getColorsBySortingId";
 import ColorSorted from "./types/ColorSorted";
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+let frontEndpoint = process.env.FRONT_END_ENDPOINT;
+const corsOptions = {
+    origin: frontEndpoint, // Allow only this origin
+    methods: 'GET,POST', // Allow only GET and POST requests
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow only these headers
+    optionsSuccessStatus: 204 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 
 app.post('/action/start', async (req, res) => {
     const actionRequest = req.body;
