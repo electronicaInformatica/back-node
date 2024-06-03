@@ -10,12 +10,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-let frontEndpoint = process.env.FRONT_END_ENDPOINT;
+
 const corsOptions = {
-    origin: frontEndpoint, // Allow only this origin
-    methods: 'GET,POST', // Allow only GET and POST requests
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow only these headers
-    optionsSuccessStatus: 204 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204
 };
 
 app.use(cors(corsOptions));
