@@ -4,8 +4,6 @@ import mqttClient from './mqttClient';
 import startSorting from "./mongo/startSorting";
 import getColorsBySortingId from "./mongo/getColorsBySortingId";
 import ColorSorted from "./types/ColorSorted";
-import StartMessage from "./types/StartMessage";
-import StopMessage from "./types/StopMessage";
 
 const app = express();
 const port = 3000;
@@ -15,27 +13,23 @@ app.use(bodyParser.json());
 app.post('/action/start', async (req, res) => {
     const actionRequest = req.body;
     let amountToBeSorted = actionRequest.amountToBeSorted;
-    const id = await startSorting(amountToBeSorted);
-    const startMessage : StartMessage = {
-        id,
-        amountToBeSorted
-    };
-    mqttClient.publish('rocklet_sorter/start', JSON.stringify(startMessage), (err) => {
+    const sortingId = await startSorting(amountToBeSorted);
+    let message = {sortingId: sortingId, amountToBeSorted: amountToBeSorted};
+    mqttClient.publish('rocklet_sorter/start', JSON.stringify(message), {retain: true}, (err) => {
         if (err) {
             console.error('Failed to publish start message', err);
             return res.status(500).send('Failed to start sorting');
         }
-        return res.status(200).send({ id });
+        return res.status(200).send({ sortingId });
     });
 });
 
 app.post('/action/stop', async (req, res) => {
     const actionRequest = req.body;
-    let id = actionRequest.id;
-    const stopMessage : StopMessage = {
-        id
-    };
-    mqttClient.publish('rocklet_sorter/stop', JSON.stringify(stopMessage), (err) => {
+    let sortingId = actionRequest.sortingId;
+
+    let message = {sortingId: sortingId};
+    mqttClient.publish('rocklet_sorter/stop', JSON.stringify(message), (err) => {
         if (err) {
             console.error('Failed to publish stop message', err);
             return res.status(500).send('Failed to stop sorting');

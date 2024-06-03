@@ -5,15 +5,9 @@ npm start
 ```
 # Endpoints
 ```bash
-curl -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"amountToBeSorted": 100}' \
-  http://localhost:3000/action
+curl -X POST -H "Content-Type: application/json" -d '{"amountToBeSorted": 3}' http://localhost:3000/action/start
 ```
 
 ```bash
-curl -X POST \
-  -H "Content-Type: application/json" \
-  -d '{"id": "66477e3f4bb8a4c7645eb5a8"}' \
-  http://localhost:3000/action
+curl -X POST -H "Content-Type: application/json" -d '{"id": "665bc369d655cca3f39e428c"}' http://localhost:3000/action/stop
 ```
