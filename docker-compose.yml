@@ -1,15 +1,12 @@
 version: '3'
 
 services:
-  mongodb:
-    image: mongo
-    container_name: my-mongodb
+  rocklet-sorter:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_DATABASE=rocket_sorter
-    volumes:
-      - mongodb_data:/data/db
+      - "3001:3001"
 
   emqx:
     image: emqx/emqx
