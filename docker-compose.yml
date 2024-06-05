@@ -8,11 +8,5 @@ services:
     ports:
       - "3001:3001"
 
-  emqx:
-    image: emqx/emqx
-    container_name: emqx
-    ports:
-      - "1883:1883"
-
 volumes:
   mongodb_data:
