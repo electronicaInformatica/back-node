@@ -27,7 +27,7 @@ app.post('/action/start', async (req, res) => {
     let amountToBeSorted = actionRequest.amountToBeSorted;
     const sortingId = await startSorting(amountToBeSorted);
     let message = {sortingId: sortingId, amountToBeSorted: amountToBeSorted};
-    mqttClient.publish('rocklet_sorter/start', JSON.stringify(message), {retain: true}, (err) => {
+    mqttClient.publish('rocklet_sorter/start', JSON.stringify(message), (err) => {
         if (err) {
             console.error('Failed to publish start message', err);
             return res.status(500).send('Failed to start sorting');
