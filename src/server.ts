@@ -6,6 +6,7 @@ import getColorsBySortingId from "./mongo/getColorsBySortingId";
 import ColorSorted from "./types/ColorSorted";
 import dotenv from "dotenv";
 import cors from "cors";
+import getAllSortStatuses from "./mongo/getAllSortStatuses";
 
 dotenv.config();
 const app = express();
@@ -62,6 +63,17 @@ app.get('/colors/:sortingId', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
+app.get('/sort-statuses', async (req, res) => {
+    try {
+        const statuses = await getAllSortStatuses();
+        res.json(statuses);
+    } catch (error) {
+        console.error(`Error getting sort statuses: ${error}`);
+        res.status(500).send('Internal Server Error');
     }
 });
 
